@@ -13,4 +13,4 @@ class BasicChatBotNode:
         """
         Process the input state and generate a chatbot response
         """
-        return {"messages" : self.llm.invoke(state.messages)}
+        return {"messages" : self.llm.invoke(state["messages"])}

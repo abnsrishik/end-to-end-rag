@@ -45,13 +45,13 @@ class GraphBuilder:
 
         ## Add nodes
         self.graph_builder.add_node("Chatbot", chatbot_node)
-        self.graph_builder.add_node("Tools", tool_node)
+        self.graph_builder.add_node("tools", tool_node)
 
         ## Add Edges
         self.graph_builder.add_edge(START, "Chatbot")
         self.graph_builder.add_conditional_edges("Chatbot", tools_condition) # Define tool conditions //
-        self.graph_builder.add_edge("Tools", "Chatbot")
-        self.graph_builder.add_edge("Chatbot", END)
+        self.graph_builder.add_edge("tools", "Chatbot")
+        # self.graph_builder.add_edge("Chatbot", END)
 
     def setup_graph(self, usecase: str):
         """

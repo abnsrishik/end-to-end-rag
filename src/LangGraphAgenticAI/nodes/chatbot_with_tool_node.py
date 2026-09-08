@@ -1,4 +1,5 @@
 from src.LangGraphAgenticAI.state.state import State
+from langchain_core.messages import SystemMessage
 
 class ChatbotWithToolNode:
     """
@@ -28,7 +29,19 @@ class ChatbotWithToolNode:
             """
             Chatbot logic for processing the input state and returning a response
             """
-            return {"messages" : [llm_with_tools.invoke(state["messages"])]}
+            messages = [
+                SystemMessage(
+                    content=(
+                        """
+                        Use tavily_search only for web searches. 
+                        Always call it with exactly one argument: 
+                        query, containing the user's search question.
+                        """
+                    )
+                ),
+                *state["messages"],
+            ]
+            return {"messages": [llm_with_tools.invoke(messages)]}
         
         return chatbot_node
 
