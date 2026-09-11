@@ -18,3 +18,4 @@ langchain-tavily
 litellm
 langchain-litellm
 tavily-python
+streamlit
