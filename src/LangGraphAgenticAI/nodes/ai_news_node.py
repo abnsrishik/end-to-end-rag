@@ -78,7 +78,7 @@ class AINewsNode:
         self.state['summary'] = state['summary']
         return self.state
 
-    def save_result(self,state:State):
+    def save_result(self,state):
         frequency = self.state['frequency']
         summary = self.state['summary']
         filename = f"./AINews/{frequency}_summary.md"
