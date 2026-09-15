@@ -45,7 +45,7 @@ class LoadStreamlitUI:
                         index = 0
                     )
                 if st.button("Fetch Latest AI News", use_container_width = True):
-                    # st.session_state.IsFetchButtonClicked = True
+                    st.session_state.IsFetchButtonClicked = True
                     st.session_state.time_frame = time_frame
                 
             return self.user_controls
