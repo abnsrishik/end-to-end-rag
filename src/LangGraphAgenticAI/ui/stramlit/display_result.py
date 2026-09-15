@@ -50,7 +50,7 @@ class DisplayResultStreamlit:
                         markdown_content = file.read()
                     
                     # display the markdown content in strealit
-                    st.markdown(markdown_content, unsafe_allo_html = True)
+                    st.markdown(markdown_content, unsafe_allow_html = True)
                 except FileNotFoundError:
                     st.error(f"News not Generated ot File not found: {AI_NEWS_PATH}")
                 except Exception as e:

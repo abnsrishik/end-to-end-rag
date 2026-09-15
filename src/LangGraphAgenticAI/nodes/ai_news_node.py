@@ -1,5 +1,6 @@
 from tavily import TavilyClient
 from langchain_core.prompts import ChatPromptTemplate
+from pathlib import Path
 
 class AINewsNode:
     def __init__(self,llm):
@@ -22,7 +23,7 @@ class AINewsNode:
             dict: updated state with 'news_data' key containing fetched news.
         """ 
 
-        frequency = state['message'][0].content.lower()
+        frequency = state['messages'][0].content.lower()
         self.state['frequency'] = frequency
         time_range_map = {'daily' : 'd', 'weekly' : 'w', 'monthly' : 'm', 'year' : 'y'}
         days_map = {'daily' : 1, 'weekly' : 7, 'monthly' : 30, 'year' : 365}
@@ -53,7 +54,7 @@ class AINewsNode:
         """
 
         news_items = self.state['news_data']
-        prompt_template = ChatPromptTemplate.from_message([
+        prompt_template = ChatPromptTemplate.from_messages([
             ("system",
             """
             Summarize AI news articles into markdown format. For each item include:
@@ -81,9 +82,14 @@ class AINewsNode:
     def save_result(self,state):
         frequency = self.state['frequency']
         summary = self.state['summary']
-        filename = f"./AINews/{frequency}_summary.md"
+
+        output_dir = Path("./AINews")
+        output_dir.mkdir(parents=True, exist_ok=True)
+
+        filename = output_dir / f"{frequency}_summary.md"
         with open(filename, 'w') as f:
             f.write(f"# {frequency.capitalize()} AI News Summary\n\n")
             f.write(summary)
-        self.state['filename'] = filename
-        return self.save_result
+        state['filename'] = str(filename)
+        self.state['filename'] = str(filename)
+        return state
